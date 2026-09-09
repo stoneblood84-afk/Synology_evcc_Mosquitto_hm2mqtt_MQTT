@@ -1,6 +1,6 @@
 # Synology: evcc, Mosquitto und hm2mqtt mit Marstek B2500D
 
-Stand: 9. September 2026. IP und MACs in den folgenden Textbeispielen sind Beispielwerte; die Screenshots zeigen den ursprünglichen Anlagenstand. Diese Anleitung basiert auf den Projektdateien und den vier Screenshots. Sie richtet die Anzeige der Speicherwerte in evcc ein. Eine aktive Steuerung der Lade-/Entladeleistung ist mit den vorhandenen benutzerdefinierten Zählern noch nicht eingerichtet.
+IP und MACs in den folgenden Textbeispielen sind Beispielwerte; die Screenshots zeigen den ursprünglichen Anlagenstand. Diese Anleitung basiert auf den Projektdateien und den vier Screenshots. Sie richtet die Anzeige der Speicherwerte in evcc ein. Eine aktive Steuerung der Lade-/Entladeleistung ist mit den vorhandenen benutzerdefinierten Zählern noch nicht eingerichtet.
 
 ## Überblick
 
