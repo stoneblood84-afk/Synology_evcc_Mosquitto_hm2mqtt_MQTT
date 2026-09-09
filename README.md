@@ -74,7 +74,7 @@ Das Verzeichnis bewahrt die interne Datenbank dauerhaft auf. Die Datei enthält 
 7. Vom Image vorgegebene Variablen, Startbefehl und Entrypoint übernehmen.
 8. Einstellungen übernehmen. Solange Mosquitto noch nicht läuft, sind MQTT-Verbindungsfehler zu erwarten. Den abschließenden Start nach Schritt 5 durchführen.
 
-Späterer Browserzugriff: [http://192.168.1.10:7070](http://192.168.1.10:7070). Web Station wird nicht benötigt. Die Beispiele verwenden `latest` wie die Screenshots; für spätere Updates eingesetzte Versionen dokumentieren und Konfiguration/Datenbank sichern.
+Späterer Browserzugriff: [http://192.168.1.10:7070](http://192.168.x.x:7070). Web Station wird nicht benötigt. Die Beispiele verwenden `latest` wie die Screenshots; für spätere Updates eingesetzte Versionen dokumentieren und Konfiguration/Datenbank sichern.
 
 ![Screenshot 1: evcc-Mounts und Host-Netzwerk](docs/images/01-evcc.png)
 
@@ -176,7 +176,7 @@ Broker-URL unverändert lassen. `localhost` wäre im Bridge-Netzwerk der hm2mqtt
 
 Auf einem Bluetooth-fähigen Gerät in Chrome [hmjs](https://tomquist.github.io/hmjs/) öffnen, in Reichweite mit dem Speicher verbinden und WLAN-/MQTT-Einstellungen auslesen. Vor Änderungen bisherige Werte notieren. Felder können firmwareabhängig abweichen.
 
-Für jeden Speicher MQTT aktivieren, folgende Werte einstellen und speichern:
+Für jeden Speicher MQTT aktivieren, folgende Werte einstellen und speichern (Durch eigene IP-Adresse ersetzten):
 
 | Einstellung | Speicher 1 | Speicher 2 |
 |---|---|---|
@@ -192,7 +192,7 @@ Der in der Anfrage mit „esphome-b2500“ beschriftete Link führt zu hm2mqtt. 
 
 ### Daten mit MQTT Explorer prüfen
 
-In [MQTT Explorer](https://mqtt-explorer.com/) Host `192.168.1.10`, Port `1883`, ohne TLS und für diese Grundkonfiguration ohne Zugangsdaten verwenden. Nicht den Proxy-Port 1890 wählen.
+In [MQTT Explorer](https://mqtt-explorer.com/) Host `192.168.x.x`, Port `1883`, ohne TLS und für diese Grundkonfiguration ohne Zugangsdaten verwenden. Nicht den Proxy-Port 1890 wählen.
 
 Diese Topics der Projektgeräte beobachten:
 
@@ -209,7 +209,7 @@ Vollständiges Beispiel für **einen Speicher**, ohne die anlagenspezifischen PV
 
 ```yaml
 mqtt:
-  broker: 192.168.1.10:1883
+  broker: 192.168.x.x:1883
   topic: evcc
 
 site:
@@ -223,17 +223,17 @@ meters:
     type: custom
     soc:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/001a2b3c4d5e/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryPercentage
       timeout: 120s
     power:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/001a2b3c4d5e/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .outputPower.total - .solarPower.total
       timeout: 120s
     capacity:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/001a2b3c4d5e/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryCapacity / 1000
       timeout: 120s
 ```
