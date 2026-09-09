@@ -55,7 +55,7 @@ Die Projektdatei `evcc.yaml` nach `/volume1/docker/evcc/evcc.yaml` und `mosquitt
 
 Die Konfigurationsdateien müssen vor dem Containerstart als **Dateien**, nicht als gleichnamige Ordner existieren. Als UTF-8 speichern; YAML mit Leerzeichen statt Tabulatoren einrücken.
 
-## 2. evcc installieren – Screenshot 1
+## 2. evcc installieren
 
 1. In **Container Manager → Registrierung** `evcc/evcc:latest` herunterladen.
 2. Unter **Image** auswählen und **Ausführen** wählen.
@@ -78,7 +78,7 @@ Späterer Browserzugriff: [http://192.168.x.x:7070](http://192.168.x.x:7070). We
 
 ![Screenshot 1: evcc-Mounts und Host-Netzwerk](docs/images/01-evcc.png)
 
-## 3. Mosquitto installieren – Screenshot 2
+## 3. Mosquitto installieren
 
 **Korrektur:** Der Screenshot mountet nach `/etc/mosquitto/mosquitto.conf`, der Startbefehl liest aber `/mosquitto/config/mosquitto.conf`. Das Mount-Ziel muss zum Startbefehl passen. Für den Standardstart des offiziellen Images deshalb `/mosquitto/config/mosquitto.conf` verwenden. Quelle: [offizielles Mosquitto-Image](https://hub.docker.com/_/eclipse-mosquitto).
 
@@ -117,7 +117,7 @@ Alternativ den gesamten Ordner `/volume1/docker/mosquitto` nach `/mosquitto/conf
 
 ![Screenshot 2: gezeigtes Mosquitto-Mount-Ziel korrigieren](docs/images/02-mosquitto.png)
 
-## 4. hm2mqtt als Projekt installieren – Screenshots 3 und 4
+## 4. hm2mqtt als Projekt installieren
 
 Die aktuelle Projektdatei verwendet **Host-Netzwerk**. Screenshot 3 zeigt dagegen **Bridge-Netzwerk** mit Portweiterleitung. Die Hauptvariante hier entspricht der Datei.
 
