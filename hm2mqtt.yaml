@@ -12,6 +12,6 @@ services:
       POLL_EXTRA_BATTERY_DATA: "false"
       POLL_CALIBRATION_DATA: "false"
       MQTT_PROXY_ENABLED: "true"
-      MQTT_PROXY_PORT: "1890" #Nur wenn daten über Proxy laufen sollen  (Für Marstek gut geeignet)
+      MQTT_PROXY_PORT: "1890" #Nur wenn Daten über Proxy laufen sollen  (Für Marstek gut geeignet)
       DEVICE_0: "HMJ-2:<MAC-Adresse>"
       DEVICE_1: "HMJ-2:<MAC-Adresse>"
