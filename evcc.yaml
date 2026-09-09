@@ -3,12 +3,12 @@
 # angebunden über den lokalen MQTT-Broker und den hm2mqtt-Bridge-Container.
 
 mqtt:
-  broker: 10.168.200.41:1883
+  broker: 192.168.x.x:1883
   # user: mqtt_user
   # password: mqtt_passwort
 
 site:
-  title: Energie bei Weiss
+  title: <Your Site Name>
   meters:
     pv:
       - apsystems_pv_1
@@ -29,13 +29,13 @@ meters:
     type: template
     template: apsystems-ez1
     usage: pv
-    host: 10.168.200.180
+    host: 192.168.x.x
 
   - name: apsystems_pv_2
     type: template
     template: apsystems-ez1
     usage: pv
-    host: 10.168.200.235
+    host: 192.168.x.x
 
   # --- Marstek B2500 Batteriespeicher 1 über hm2mqtt ---
   # WICHTIG: kein "usage:" bei type: custom - die Zuordnung zu battery
@@ -45,19 +45,19 @@ meters:
 
     soc:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryPercentage
       timeout: 120s
 
     power:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .outputPower.total - .solarPower.total
       timeout: 120s
 
     capacity:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data   # korrigiert: war vorher noch die alte Test-MAC
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryCapacity / 1000
       timeout: 120s
 
@@ -71,19 +71,19 @@ meters:
 
     soc:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryPercentage
       timeout: 120s
 
     power:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .outputPower.total - .solarPower.total
       timeout: 120s
 
     capacity:
       source: mqtt
-      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
       jq: .batteryCapacity / 1000
       timeout: 120s
 
