@@ -375,6 +375,4 @@ Dies prüft den MQTT-Datenweg. Abstürze und Anwendungsfehler stehen in den Cont
 
 ---
 
-Die Anleitung wurde anhand der Projektdateien und verlinkten Dokumentation geprüft. Eine Bereitstellung oder ein Funktionstest auf der Synology wurde nicht durchgeführt.
-
 
