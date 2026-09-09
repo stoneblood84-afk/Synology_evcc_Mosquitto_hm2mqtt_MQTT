@@ -74,7 +74,7 @@ Das Verzeichnis bewahrt die interne Datenbank dauerhaft auf. Die Datei enthält 
 7. Vom Image vorgegebene Variablen, Startbefehl und Entrypoint übernehmen.
 8. Einstellungen übernehmen. Solange Mosquitto noch nicht läuft, sind MQTT-Verbindungsfehler zu erwarten. Den abschließenden Start nach Schritt 5 durchführen.
 
-Späterer Browserzugriff: [http://192.168.1.10:7070](http://192.168.x.x:7070). Web Station wird nicht benötigt. Die Beispiele verwenden `latest` wie die Screenshots; für spätere Updates eingesetzte Versionen dokumentieren und Konfiguration/Datenbank sichern.
+Späterer Browserzugriff: [http://192.168.x.x:7070](http://192.168.x.x:7070). Web Station wird nicht benötigt. Die Beispiele verwenden `latest` wie die Screenshots; für spätere Updates eingesetzte Versionen dokumentieren und Konfiguration/Datenbank sichern.
 
 ![Screenshot 1: evcc-Mounts und Host-Netzwerk](docs/images/01-evcc.png)
 
@@ -133,7 +133,7 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      MQTT_BROKER_URL: "mqtt://192.168.1.10:1883"
+      MQTT_BROKER_URL: "mqtt://192.168.x.x:1883"
       MQTT_POLLING_INTERVAL: "60"
       MQTT_RESPONSE_TIMEOUT: "30"
       POLL_CELL_DATA: "false"
@@ -180,11 +180,11 @@ Für jeden Speicher MQTT aktivieren, folgende Werte einstellen und speichern (Du
 
 | Einstellung | Speicher 1 | Speicher 2 |
 |---|---|---|
-| MQTT-Host | 192.168.1.10 | 192.168.1.10 |
+| MQTT-Host | 192.168.x.x | 192.168.x.x |
 | MQTT-Port | 1890 | 1890 |
 | MQTT-Benutzername | z. B. b2500_1 | z. B. b2500_2 |
 
-Für mehrere Speicher unterschiedliche MQTT-Benutzernamen verwenden. Bei aktiviertem Brokerschutz müssen gültige Zugangsdaten zusätzlich im Broker eingerichtet sein.
+Für mehrere Speicher unterschiedliche MQTT-Benutzernamen verwenden. Bei aktiviertem Brokerschutz müssen gültige Zugangsdaten zusätzlich im Broker eingerichtet sein. Ein Passwort muss nicht eingetragen werden.
 
 Gerätetyp und **Bluetooth-MAC**, nicht WLAN-MAC, auslesen. Für `DEVICE_n` die MAC kleinschreiben und Doppelpunkte entfernen. `HMJ-2` gilt für diese Projektgeräte; den Typ anderer Geräte auslesen. Bei Firmware 226.5/108.7 verhindert der Proxy bei mehreren B2500 Konflikte identischer Client-IDs. Bei neueren Versionen empfiehlt das Projekt unterschiedliche MQTT-Benutzernamen. Lokales MQTT deaktiviert die direkte Cloud-Verbindung; für parallelen Cloud-/App-Betrieb verweist das Projekt auf zusätzliches hame-relay. Quelle: [hm2mqtt-Einrichtung](https://github.com/tomquist/hm2mqtt#step-by-step-setup).
 
@@ -196,9 +196,11 @@ In [MQTT Explorer](https://mqtt-explorer.com/) Host `192.168.x.x`, Port `1883`, 
 
 Diese Topics der Projektgeräte beobachten:
 
+Egibt unterschiedliche Geräte-IDs: HMA-1, HMJ-1 und andere. Im Beispiel wird HMJ-2 verwendet. 
+
 ```text
-hm2mqtt/HMJ-2/device/001a2b3c4d5e/data
-hm2mqtt/HMJ-2/device/001a2b3c4d5f/data
+hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
+hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
 ```
 
 Die vorhandene evcc-Datei erwartet `batteryPercentage`, `outputPower.total`, `solarPower.total` und `batteryCapacity`. Über mehrere Abfrageintervalle neue Nachrichten nachweisen. Ein sichtbarer alter Wert genügt nicht. Abweichende Felder/Einheiten vor der evcc-Einbindung klären.
@@ -229,7 +231,7 @@ meters:
     power:
       source: mqtt
       topic: hm2mqtt/HMJ-2/device/<MAC-Adresse>/data
-      jq: .outputPower.total - .solarPower.total
+      jq: .outputPower.total - .solarPower.total # Sollten die Werte in EVCC Falsch angezeigt werden kann auch '.solarPower.total - .outputPower.total' verwendet werden.
       timeout: 120s
     capacity:
       source: mqtt
