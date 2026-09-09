@@ -5,13 +5,13 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      MQTT_BROKER_URL: "mqtt://10.168.200.41:1883"
+      MQTT_BROKER_URL: "mqtt://192.168.x.x:1883"
       MQTT_POLLING_INTERVAL: "60"
       MQTT_RESPONSE_TIMEOUT: "30"
       POLL_CELL_DATA: "false"
       POLL_EXTRA_BATTERY_DATA: "false"
       POLL_CALIBRATION_DATA: "false"
       MQTT_PROXY_ENABLED: "true"
-      MQTT_PROXY_PORT: "1890"
-      DEVICE_0: "HMJ-2:009c17e0251d"
-      DEVICE_1: "HMJ-2:b42f03988f80"
+      MQTT_PROXY_PORT: "1890" #Nur wenn daten über Proxy laufen sollen  (Für Marstek gut geeignet)
+      DEVICE_0: "HMJ-2:<MAC-Adresse>"
+      DEVICE_1: "HMJ-2:<MAC-Adresse>"
