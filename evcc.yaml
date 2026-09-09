@@ -1,0 +1,99 @@
+# evcc.yaml
+# Grundkonfiguration für evcc mit 2x Marstek B2500 (HMJ-2) als Batteriespeicher,
+# angebunden über den lokalen MQTT-Broker und den hm2mqtt-Bridge-Container.
+
+mqtt:
+  broker: 10.168.200.41:1883
+  # user: mqtt_user
+  # password: mqtt_passwort
+
+site:
+  title: Energie bei Weiss
+  meters:
+    pv:
+      - apsystems_pv_1
+      - apsystems_pv_2
+    battery:
+      - Marstek_Speicher_1
+      - Marstek_Speicher_2
+
+meters:
+  #- name: grid
+  #  type: template
+  #  template: shelly3em
+  #  host: 192.168.x.x
+  #  usage: grid
+
+  # --- Balkonsolar ---
+  - name: apsystems_pv_1
+    type: template
+    template: apsystems-ez1
+    usage: pv
+    host: 10.168.200.180
+
+  - name: apsystems_pv_2
+    type: template
+    template: apsystems-ez1
+    usage: pv
+    host: 10.168.200.235
+
+  # --- Marstek B2500 Batteriespeicher 1 über hm2mqtt ---
+  # WICHTIG: kein "usage:" bei type: custom - die Zuordnung zu battery
+  # passiert ausschließlich über site.meters.battery oben.
+  - name: Marstek_Speicher_1
+    type: custom
+
+    soc:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data
+      jq: .batteryPercentage
+      timeout: 120s
+
+    power:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data
+      jq: .outputPower.total - .solarPower.total
+      timeout: 120s
+
+    capacity:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/b42f03988f80/data   # korrigiert: war vorher noch die alte Test-MAC
+      jq: .batteryCapacity / 1000
+      timeout: 120s
+
+  # --- Marstek B2500 Batteriespeicher 2 über hm2mqtt ---
+  # ACHTUNG: hier unten musst du die ECHTE Bluetooth-MAC deines zweiten
+  # Speichers eintragen - aktuell steht hier noch ein Platzhalter. Solange
+  # beide Speicher dieselbe MAC im Topic verwenden, liest evcc zweimal
+  # denselben Speicher aus.
+  - name: Marstek_Speicher_2
+    type: custom
+
+    soc:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      jq: .batteryPercentage
+      timeout: 120s
+
+    power:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      jq: .outputPower.total - .solarPower.total
+      timeout: 120s
+
+    capacity:
+      source: mqtt
+      topic: hm2mqtt/HMJ-2/device/009c17e0251d/data
+      jq: .batteryCapacity / 1000
+      timeout: 120s
+
+#loadpoints:
+#  - title: Garage
+#    charger: wallbox
+#    mode: pv
+#
+#chargers:
+#  - name: wallbox
+#    type: template
+#    template: go-e
+#    host: 192.168.x.x
