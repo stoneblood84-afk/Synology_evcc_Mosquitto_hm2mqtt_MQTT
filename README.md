@@ -6,7 +6,7 @@ Wähle unten die gewünschte Sprache. Die Inhalte liegen in getrennten Markdown-
 EN:
 Select your preferred language below. The content is available in separate Markdown files, so each version can also be linked directly.
 
-<details open>
+<details>
 <summary>🇩🇪 Deutsch</summary>
 
 Deutsche Anleitung: [README.de.md](README.de.md)
